@@ -1,3 +1,8 @@
+// src/app/page.tsx
+// ═══════════════════════════════════════════════════════════════
+// HOMEPAGE
+// ═══════════════════════════════════════════════════════════════
+
 import type { Metadata } from "next";
 import { siteConfig } from "@/constants/site-config";
 
@@ -10,14 +15,14 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main className="relative overflow-hidden">
+    <main className="relative overflow-hidden -mt-20">
       {/* Background decorations */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute right-0 top-0 h-96 w-96 rounded-full bg-gold-500/10 blur-3xl" />
         <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-temple-500/10 blur-3xl" />
       </div>
 
-      <div className="relative flex min-h-screen items-center justify-center px-4">
+      <div className="relative flex min-h-screen items-center justify-center px-4 pt-20">
         <div className="mx-auto max-w-4xl space-y-8 text-center">
           <div
             className="animate-breathe text-8xl"
@@ -50,7 +55,7 @@ export default function HomePage() {
             in the heart of Kamburupitiya, Sri Lanka.
           </p>
 
-          <div className="inline-flex items-center gap-2 rounded-full border border-gold-500/20 bg-cream-100 px-4 py-2">
+          <div className="inline-flex items-center gap-2 rounded-full border border-gold-500/20 bg-cream-100 px-4 py-2 dark:bg-cream-900/20">
             <span className="text-gold-500">📍</span>
             <span className="text-sm text-foreground">
               {siteConfig.location.address}
@@ -60,8 +65,8 @@ export default function HomePage() {
           <div className="flex justify-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-gold-500/20 bg-gold-500/10 px-4 py-2">
               <div className="h-2 w-2 animate-ping-slow rounded-full bg-bodhi-500" />
-              <span className="text-sm font-medium text-gold-600">
-                Phase 1 Complete — Foundation Ready
+              <span className="text-sm font-medium text-gold-600 dark:text-gold-400">
+                Phase 2 Complete — Premium Navbar Ready
               </span>
             </div>
           </div>
@@ -85,6 +90,19 @@ export default function HomePage() {
                 <p className="sinhala text-xs text-muted-foreground">
                   {org.nameSinhala}
                 </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Extra content for scroll testing */}
+          <div className="mt-32 space-y-8 opacity-50">
+            <p className="text-muted-foreground">↓ Scroll to see navbar transform ↓</p>
+            {[...Array(3)].map((_, i) => (
+              <div
+                key={i}
+                className="h-64 rounded-2xl bg-gradient-to-br from-gold-500/5 to-temple-500/5 border border-gold-500/10 flex items-center justify-center"
+              >
+                <p className="text-muted-foreground">Scroll Section {i + 1}</p>
               </div>
             ))}
           </div>

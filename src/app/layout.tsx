@@ -1,7 +1,15 @@
+// src/app/layout.tsx
+// ═══════════════════════════════════════════════════════════════
+// ROOT LAYOUT
+// Main app wrapper with theme provider and navbar
+// ═══════════════════════════════════════════════════════════════
+
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Inter, Noto_Sans_Sinhala } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/constants/site-config";
+import { ThemeProvider } from "@/components/common/theme-provider";
+import { Navbar } from "@/components/layout/navbar/navbar";
 
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
@@ -69,7 +77,15 @@ export default function RootLayout({
       className={`${cormorantGaramond.variable} ${inter.variable} ${notoSansSinhala.variable}`}
     >
       <body className="bg-background text-foreground font-body antialiased overflow-x-hidden">
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
