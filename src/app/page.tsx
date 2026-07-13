@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { siteConfig, type Organization } from "@/constants/site-config";
+import { siteConfig } from "@/constants/site-config";
 
 export const metadata: Metadata = {
   title: {
