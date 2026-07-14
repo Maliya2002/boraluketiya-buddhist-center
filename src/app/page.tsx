@@ -1,6 +1,6 @@
 // src/app/page.tsx
 // ═══════════════════════════════════════════════════════════════
-// HOMEPAGE
+// HOMEPAGE - Complete with all sections
 // ═══════════════════════════════════════════════════════════════
 
 import type { Metadata } from "next";
@@ -14,6 +14,11 @@ import { OrganizationsSection } from "@/components/sections/organizations-sectio
 import { EventsSection } from "@/components/sections/events-section";
 import { GallerySection } from "@/components/sections/gallery-section";
 import { VideosSection } from "@/components/sections/videos-section";
+import { NewsSection } from "@/components/sections/news-section";
+import { QuoteSection } from "@/components/sections/quote-section";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { NewsletterSection } from "@/components/sections/newsletter-section";
+import { DonateCtaSection } from "@/components/sections/donate-cta-section";
 
 export const metadata: Metadata = {
   title: {
@@ -25,10 +30,10 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <main className="relative">
-      {/* Phase 3: Hero Section */}
+      {/* Phase 3: Hero */}
       <HeroSection />
 
-      {/* Phase 4: About & Story */}
+      {/* Phase 4: About */}
       <AboutSection />
       <StatsSection />
       <TimelineSection />
@@ -40,11 +45,12 @@ export default function HomePage() {
       <GallerySection />
       <VideosSection />
 
-      {/* Placeholder for next phase */}
-      <section className="relative py-20 bg-background text-center">
-        <p className="text-subtitle text-gold-500 mb-2">Coming Soon</p>
-        <h2 className="text-h2 text-foreground">Phase 6: News, Testimonials & Footer</h2>
-      </section>
+      {/* Phase 6: News, Quote, Testimonials, Newsletter, CTA */}
+      <NewsSection />
+      <QuoteSection />
+      <TestimonialsSection />
+      <DonateCtaSection />
+      <NewsletterSection />
     </main>
   );
 }
