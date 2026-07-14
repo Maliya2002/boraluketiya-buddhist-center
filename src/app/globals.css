@@ -196,7 +196,6 @@
     @apply inline-flex items-center justify-center gap-2 rounded-full border border-gold-500 bg-transparent px-6 py-3 text-sm font-semibold text-gold-500 transition-all duration-300 hover:bg-gold-500 hover:text-gold-950 active:scale-95 md:px-8 md:py-4 md:text-base;
   }
 }
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -217,8 +216,25 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-}
 
+  .bg-radial-gold {
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(212, 175, 55, 0.15) 0%,
+      transparent 50%
+    );
+  }
+
+  .text-stroke-gold {
+    -webkit-text-stroke: 1px rgba(212, 175, 55, 0.5);
+  }
+
+  .glow-text-gold {
+    text-shadow:
+      0 0 30px rgba(212, 175, 55, 0.6),
+      0 0 60px rgba(212, 175, 55, 0.3);
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -228,4 +244,21 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Add at the very end of globals.css */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-delayed {
+  opacity: 0;
 }

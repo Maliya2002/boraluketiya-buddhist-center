@@ -1,3 +1,8 @@
+// next.config.ts
+// ═══════════════════════════════════════════════════════════════
+// NEXT.JS CONFIGURATION
+// ═══════════════════════════════════════════════════════════════
+
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -9,6 +14,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "firebasestorage.googleapis.com" },
     ],
     formats: ["image/avif", "image/webp"],
+    // ✅ FIXED: Allow multiple quality settings
+    qualities: [50, 75, 85, 90, 95, 100],
   },
   reactStrictMode: true,
   poweredByHeader: false,

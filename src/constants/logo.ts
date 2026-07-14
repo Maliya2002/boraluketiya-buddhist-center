@@ -1,19 +1,23 @@
 // src/constants/logo.ts
 // ═══════════════════════════════════════════════════════════════
 // LOGO CONFIGURATION
-// Central registry of all logo variants and metadata
+// Set LOGO_ENABLED to false to use SVG fallback (no image file needed)
 // ═══════════════════════════════════════════════════════════════
+
+// ✅ Set to FALSE to use built-in SVG fallback logo
+// Change to TRUE only when you have real logo files in public/images/logo/
+const LOGO_ENABLED = false;
 
 export const LOGO_PATHS = {
   full: {
-    default: "/images/logo/logo-full.png",
-    webp: "/images/logo/logo-full.webp",
+    default: LOGO_ENABLED ? "/images/logo/logo-full.png" : "",
+    webp: "",
   },
   white: {
-    default: "/images/logo/logo-white.png",
+    default: LOGO_ENABLED ? "/images/logo/logo-white.png" : "",
   },
   icon: {
-    default: "/images/logo/logo-icon.png",
+    default: LOGO_ENABLED ? "/images/logo/logo-icon.png" : "",
   },
 } as const;
 
@@ -29,12 +33,12 @@ export const LOGO_META = {
   originalWidth: 1024,
   originalHeight: 1024,
   altText: {
-    en: "Boraluketiya Buddhist Center Official Logo",
-    si: "බොරලුකෙටිය බෞද්ධ මධ්‍යස්ථානයේ නිල ලාංඡනය",
+    en: "Boralukatiya Buddhist Center Official Logo",
+    si: "බොරලුකැටිය බෞද්ධ මධ්‍යස්ථානයේ නිල ලාංඡනය",
   },
   shortAltText: {
-    en: "Boraluketiya Buddhist Center",
-    si: "බොරලුකෙටිය බෞද්ධ මධ්‍යස්ථානය",
+    en: "Boralukatiya Buddhist Center",
+    si: "බොරලුකැටිය බෞද්ධ මධ්‍යස්ථානය",
   },
 } as const;
 

@@ -5,6 +5,15 @@
 
 import type { Metadata } from "next";
 import { siteConfig } from "@/constants/site-config";
+import { HeroSection } from "@/components/sections/hero-section";
+import { AboutSection } from "@/components/sections/about-section";
+import { StatsSection } from "@/components/sections/stats-section";
+import { TimelineSection } from "@/components/sections/timeline-section";
+import { ChiefIncumbentSection } from "@/components/sections/chief-incumbent-section";
+import { OrganizationsSection } from "@/components/sections/organizations-section";
+import { EventsSection } from "@/components/sections/events-section";
+import { GallerySection } from "@/components/sections/gallery-section";
+import { VideosSection } from "@/components/sections/videos-section";
 
 export const metadata: Metadata = {
   title: {
@@ -15,99 +24,27 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main className="relative overflow-hidden -mt-20">
-      {/* Background decorations */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute right-0 top-0 h-96 w-96 rounded-full bg-gold-500/10 blur-3xl" />
-        <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-temple-500/10 blur-3xl" />
-      </div>
+    <main className="relative">
+      {/* Phase 3: Hero Section */}
+      <HeroSection />
 
-      <div className="relative flex min-h-screen items-center justify-center px-4 pt-20">
-        <div className="mx-auto max-w-4xl space-y-8 text-center">
-          <div
-            className="animate-breathe text-8xl"
-            role="img"
-            aria-label="Lotus flower"
-          >
-            🌸
-          </div>
+      {/* Phase 4: About & Story */}
+      <AboutSection />
+      <StatsSection />
+      <TimelineSection />
+      <ChiefIncumbentSection />
+      <OrganizationsSection />
 
-          <div className="space-y-3">
-            <p className="text-subtitle text-gold-500">
-              A SACRED PLACE OF PEACE & WISDOM
-            </p>
-            <h1 className="text-h1 text-balance text-gradient-gold">
-              {siteConfig.name}
-            </h1>
-            <p className="sinhala text-2xl text-muted-foreground md:text-3xl">
-              {siteConfig.nameSinhala}
-            </p>
-          </div>
+      {/* Phase 5: Events, Gallery, Videos */}
+      <EventsSection />
+      <GallerySection />
+      <VideosSection />
 
-          <div className="mx-auto flex max-w-sm items-center justify-center gap-4">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gold-500/50" />
-            <div className="text-2xl text-gold-500">❖</div>
-            <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gold-500/50" />
-          </div>
-
-          <p className="text-body mx-auto max-w-2xl leading-relaxed text-muted-foreground">
-            {siteConfig.tagline} — A sanctuary of peace, wisdom, and compassion
-            in the heart of Kamburupitiya, Sri Lanka.
-          </p>
-
-          <div className="inline-flex items-center gap-2 rounded-full border border-gold-500/20 bg-cream-100 px-4 py-2 dark:bg-cream-900/20">
-            <span className="text-gold-500">📍</span>
-            <span className="text-sm text-foreground">
-              {siteConfig.location.address}
-            </span>
-          </div>
-
-          <div className="flex justify-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-gold-500/20 bg-gold-500/10 px-4 py-2">
-              <div className="h-2 w-2 animate-ping-slow rounded-full bg-bodhi-500" />
-              <span className="text-sm font-medium text-gold-600 dark:text-gold-400">
-                Phase 2 Complete — Premium Navbar Ready
-              </span>
-            </div>
-          </div>
-
-          <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-3">
-            {Object.entries(siteConfig.organizations).map(([key, org]) => (
-              <div
-                key={key}
-                className="glass group space-y-3 rounded-2xl p-6 text-center transition-all duration-500 hover:scale-105"
-              >
-                <div
-                  className="mx-auto h-4 w-4 rounded-full shadow-lg"
-                  style={{
-                    backgroundColor: org.color,
-                    boxShadow: `0 0 20px ${org.color}40`,
-                  }}
-                />
-                <h3 className="font-heading text-sm font-medium text-foreground transition-colors group-hover:text-gold-500">
-                  {org.name}
-                </h3>
-                <p className="sinhala text-xs text-muted-foreground">
-                  {org.nameSinhala}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Extra content for scroll testing */}
-          <div className="mt-32 space-y-8 opacity-50">
-            <p className="text-muted-foreground">↓ Scroll to see navbar transform ↓</p>
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className="h-64 rounded-2xl bg-gradient-to-br from-gold-500/5 to-temple-500/5 border border-gold-500/10 flex items-center justify-center"
-              >
-                <p className="text-muted-foreground">Scroll Section {i + 1}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* Placeholder for next phase */}
+      <section className="relative py-20 bg-background text-center">
+        <p className="text-subtitle text-gold-500 mb-2">Coming Soon</p>
+        <h2 className="text-h2 text-foreground">Phase 6: News, Testimonials & Footer</h2>
+      </section>
     </main>
   );
 }

@@ -148,8 +148,8 @@ export const mainNavLinks: NavLink[] = [
           si: "කාමිටුව ගැන",
         },
         description: {
-          en: "Dehemi Tharuna Bauddha Kamituwa",
-          si: "දෙහෙමි තරුණ බෞද්ධ කාමිටුව",
+          en: "Dahemi Tharuna Bauddha Kamituwa",
+          si: "දැහැමි තරුණ බෞද්ධ කාමිටුව",
         },
       },
       {
