@@ -1,10 +1,10 @@
 // src/app/layout.tsx
 // ═══════════════════════════════════════════════════════════════
-// ROOT LAYOUT - Optimized for performance
+// ROOT LAYOUT - Performance optimized
 // ═══════════════════════════════════════════════════════════════
 
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter, Noto_Sans_Sinhala } from "next/font/google";
+import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -15,31 +15,15 @@ import { Navbar } from "@/components/layout/navbar/navbar";
 import { Footer } from "@/components/layout/footer/footer";
 import { BackToTop } from "@/components/common/back-to-top";
 
-// Optimized font loading
-const cormorantGaramond = Cormorant_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],  // Reduced weights
-  variable: "--font-heading",
-  display: "swap",
-  preload: true,
-  fallback: ["Georgia", "serif"],
-});
-
+// ONLY load Inter for now - single font for performance
+// Other fonts loaded on-demand via CSS
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],  // Reduced weights
+  weight: ["400", "500", "600", "700"],
   variable: "--font-body",
   display: "swap",
   preload: true,
   fallback: ["system-ui", "arial"],
-});
-
-const notoSansSinhala = Noto_Sans_Sinhala({
-  subsets: ["sinhala"],
-  weight: ["400", "500"],  // Reduced weights
-  variable: "--font-sinhala",
-  display: "swap",
-  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -70,20 +54,11 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [siteConfig.ogImage],
   },
 };
 
@@ -106,20 +81,21 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${cormorantGaramond.variable} ${inter.variable} ${notoSansSinhala.variable}`}
+      className={inter.variable}
     >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        {/* Preload critical resources */}
         <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
+          rel="preload"
+          href="/images/hero/hero-main.jpg"
+          as="image"
+          type="image/jpeg"
         />
-        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+
+        {/* DNS Prefetch */}
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
-      <body className="bg-background text-foreground font-body antialiased overflow-x-hidden">
-        {/* Fix mobile viewport height */}
+      <body className="bg-background text-foreground antialiased overflow-x-hidden">
         <script
           dangerouslySetInnerHTML={{
             __html: `

@@ -32,11 +32,11 @@
     --color-temple-accent: #8b5e3c;
     --color-warm-white: #f8f6f1;
 
-    --font-heading: "Cormorant Garamond", serif;
+    --font-heading: "Inter", "Cormorant Garamond", serif;  /* Fallback to Inter */
     --font-body: "Inter", sans-serif;
-    --font-sinhala: "Noto Sans Sinhala", sans-serif;
-    --font-display: "Cormorant Garamond", serif;
-  }
+     --font-sinhala: "Inter", "Noto Sans Sinhala", sans-serif;
+    --font-display: "Inter", "Cormorant Garamond", serif;
+}
 
   .dark {
     --background: 40 15% 6%;
@@ -359,4 +359,22 @@ body {
 
 .animate-fade-in {
   animation: fade-in 0.8s ease-out;
+}
+
+
+/* Load additional fonts on-demand via CSS */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/cormorantgaramond/v16/co3bmX5slCNuHLi8bLeY9MK7whWMhyjornFLsS6V7w.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Sans Sinhala';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/notosanssinhala/v26/1oGjBpjXvrhrRnvJppSJXYK9wxykm5Sqxg.woff2') format('woff2');
 }
