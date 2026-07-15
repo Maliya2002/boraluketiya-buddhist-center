@@ -262,3 +262,101 @@
 .animate-fade-in-delayed {
   opacity: 0;
 }
+
+/* Add at the end of globals.css */
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Enable hardware acceleration for smooth animations */
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+
+  /* Reduce heavy effects on mobile */
+  .glass,
+  .glass-dark,
+  .glass-gold {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Faster transitions on mobile */
+  .transition-all {
+    transition-duration: 200ms !important;
+  }
+
+  /* Disable heavy shadows on mobile */
+  .shadow-gold-lg,
+  .shadow-gold-xl {
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3) !important;
+  }
+}
+
+/* Touch-friendly tap targets */
+button,
+a {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent text selection on interactive elements */
+button {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Fix iOS Safari bounce */
+body {
+  overscroll-behavior-y: none;
+}
+
+/* Better mobile fonts */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* Fix mobile viewport height */
+:root {
+  --vh: 1vh;
+}
+
+.h-screen {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Prevent horizontal scroll on mobile */
+body {
+  overflow-x: hidden;
+  width: 100vw;
+  max-width: 100vw;
+}
+
+/* Add to globals.css */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out;
+}

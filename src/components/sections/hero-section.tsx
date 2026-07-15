@@ -1,6 +1,6 @@
 // src/components/sections/hero-section.tsx
 // ═══════════════════════════════════════════════════════════════
-// HERO SECTION
+// HERO SECTION - Simplified for performance
 // ═══════════════════════════════════════════════════════════════
 
 "use client";
@@ -10,8 +10,6 @@ import { cn } from "@/lib/utils";
 import { HeroBackground } from "./hero-background";
 import { HeroContent } from "./hero-content";
 import { ScrollIndicator } from "./scroll-indicator";
-import { FloatingPetals } from "@/components/animations/floating-petals";
-import { LightRays } from "@/components/animations/light-rays";
 import { HeroWidgets } from "./hero-widgets";
 
 interface HeroSectionProps {
@@ -32,21 +30,12 @@ export function HeroSection({
       )}
       aria-label="Hero section"
     >
-      {/* Background with slideshow */}
+      {/* Background */}
       <HeroBackground />
-
-      {/* Light rays effect */}
-      <LightRays position="top-left" intensity="subtle" />
-      <LightRays position="top-right" intensity="subtle" />
-
-      {/* Floating petals */}
-      <FloatingPetals count={15} />
 
       {/* Main content */}
       <div className="relative z-10 w-full container-custom py-20">
         <HeroContent language={language} />
-
-        {/* Widgets in separate client component */}
         <HeroWidgets language={language} />
       </div>
 

@@ -57,14 +57,8 @@ export function FloatingPetals({
   const [petals, setPetals] = React.useState<Petal[]>([]);
 
   React.useEffect(() => {
-    // Generate on client-side only, asynchronously to avoid synchronous state updates in effects
-    const timeout = window.setTimeout(() => {
-      setPetals(generatePetals(count));
-    }, 0);
-
-    return () => {
-      window.clearTimeout(timeout);
-    };
+    // Generate on client-side only
+    setPetals(generatePetals(count));
   }, [count]);
 
   // Don't render anything until petals are generated (avoids hydration mismatch)
