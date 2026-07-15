@@ -14,7 +14,7 @@ import { Navbar } from "@/components/layout/navbar/navbar";
 import { Footer } from "@/components/layout/footer/footer";
 import { BackToTop } from "@/components/common/back-to-top";
 import { Analytics } from "@vercel/analytics/react";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 // Optimized font loading
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
@@ -173,6 +173,7 @@ export default function RootLayout({
 />
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
