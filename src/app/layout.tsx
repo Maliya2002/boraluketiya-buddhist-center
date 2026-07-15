@@ -13,6 +13,7 @@ import { LoadingScreen } from "@/components/common/loading-screen";
 import { Navbar } from "@/components/layout/navbar/navbar";
 import { Footer } from "@/components/layout/footer/footer";
 import { BackToTop } from "@/components/common/back-to-top";
+import { Analytics } from "@vercel/analytics/react";
 
 // Optimized font loading
 const cormorantGaramond = Cormorant_Garamond({
@@ -171,6 +172,7 @@ export default function RootLayout({
   }}
 />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
