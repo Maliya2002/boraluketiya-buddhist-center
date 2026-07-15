@@ -87,7 +87,7 @@ export default function RootLayout({
         {/* Preload critical resources */}
         <link
           rel="preload"
-          href="/images/hero/hero-main.jpg"
+          href="/images/hero/temple-1.jpeg"
           as="image"
           type="image/jpeg"
         />
