@@ -1,15 +1,12 @@
 // next.config.ts
 // ═══════════════════════════════════════════════════════════════
-// NEXT.JS 16 CONFIGURATION
-// Optimized for Turbopack (default in Next.js 16)
+// NEXT.JS CONFIGURATION - Performance optimized
 // ═══════════════════════════════════════════════════════════════
 
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // ✅ Turbopack configuration (Next.js 16 default)
   turbopack: {
-    // Add turbopack-specific rules if needed
     rules: {
       "*.svg": {
         loaders: ["@svgr/webpack"],
@@ -18,7 +15,6 @@ const nextConfig: NextConfig = {
     },
   },
 
-  // Optimize package imports for faster loading
   experimental: {
     optimizePackageImports: [
       "framer-motion",
@@ -35,14 +31,14 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "res.cloudinary.com" },
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
-      { protocol: "https", hostname: "firebasestorage.googleapis.com" },
     ],
     formats: ["image/avif", "image/webp"],
-    qualities: [50, 75, 85, 90, 95, 100],
-    minimumCacheTTL: 60,
+    qualities: [50, 75, 85, 90],
+    minimumCacheTTL: 31536000, // 1 year cache
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
 
-  // Reduce console output in production
   compiler: {
     removeConsole:
       process.env.NODE_ENV === "production"
@@ -50,7 +46,6 @@ const nextConfig: NextConfig = {
         : false,
   },
 
-  // Performance
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
