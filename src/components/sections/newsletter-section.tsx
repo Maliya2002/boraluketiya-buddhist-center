@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import { Mail, Send, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { RevealOnScroll } from "@/components/animations/reveal-on-scroll";
-
+import { subscribeToNewsletter } from "@/services/newsletter.service";
 interface NewsletterSectionProps {
   className?: string;
   language?: "en" | "si";
@@ -30,14 +30,21 @@ export function NewsletterSection({
     e.preventDefault();
     setStatus("loading");
 
-    // Simulate API call
-    setTimeout(() => {
-      setStatus("success");
-      setEmail("");
+    try {
+      const result = await subscribeToNewsletter(email);
 
-      // Reset after 3 seconds
-      setTimeout(() => setStatus("idle"), 3000);
-    }, 1000);
+      if (result.success) {
+        setStatus("success");
+        setEmail("");
+        setTimeout(() => setStatus("idle"), 3000);
+      } else {
+        alert(result.error || "Subscription failed");
+        setStatus("idle");
+      }
+    } catch (error) {
+      console.error("Newsletter error:", error);
+      setStatus("idle");
+    }
   };
 
   return (

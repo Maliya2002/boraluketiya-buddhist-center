@@ -4,7 +4,7 @@
 // ═══════════════════════════════════════════════════════════════
 
 "use client";
-
+import { submitContactForm } from "@/services/contact.service";
 import * as React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle, Navigation } from "lucide-react";
@@ -50,16 +50,35 @@ export default function ContactPage() {
   });
   const [status, setStatus] = React.useState<"idle" | "sending" | "sent">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("sending");
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setStatus("sending");
 
-    setTimeout(() => {
+  try {
+    // Import at top of file:
+    // import { submitContactForm } from "@/services/contact.service";
+
+    const result = await submitContactForm({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      subject: formData.subject,
+      message: formData.message,
+    });
+
+    if (result.success) {
       setStatus("sent");
       setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
       setTimeout(() => setStatus("idle"), 3000);
-    }, 1500);
-  };
+    } else {
+      alert(result.error || "Failed to send message");
+      setStatus("idle");
+    }
+  } catch (error) {
+    console.error("Contact form error:", error);
+    setStatus("idle");
+  }
+};
 
   return (
     <main className="relative">
