@@ -1,9 +1,18 @@
 // next.config.ts
 // ═══════════════════════════════════════════════════════════════
-// NEXT.JS CONFIGURATION - Performance optimized
+// NEXT.JS CONFIGURATION with PWA
 // ═══════════════════════════════════════════════════════════════
 
 import type { NextConfig } from "next";
+import withSerwistInit from "@serwist/next";
+
+const withSerwist = withSerwistInit({
+  swSrc: "src/app/sw.ts",
+  swDest: "public/sw.js",
+  cacheOnNavigation: true,
+  reloadOnOnline: true,
+  disable: process.env.NODE_ENV === "development",
+});
 
 const nextConfig: NextConfig = {
   turbopack: {
@@ -21,8 +30,6 @@ const nextConfig: NextConfig = {
       "lucide-react",
       "react-icons",
       "date-fns",
-      "@radix-ui/react-dialog",
-      "@radix-ui/react-dropdown-menu",
     ],
   },
 
@@ -33,10 +40,9 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
     ],
     formats: ["image/avif", "image/webp"],
-    qualities: [50, 75, 85, 90],
-    minimumCacheTTL: 31536000, // 1 year cache
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    qualities: [50, 65, 70, 75, 80, 85, 90],
+    minimumCacheTTL: 31536000,
+    deviceSizes: [360, 640, 750, 828, 1080, 1200, 1600, 1920],
   },
 
   compiler: {
@@ -51,4 +57,4 @@ const nextConfig: NextConfig = {
   compress: true,
 };
 
-export default nextConfig;
+export default withSerwist(nextConfig);

@@ -378,3 +378,22 @@ body {
   font-display: swap;
   src: url('https://fonts.gstatic.com/s/notosanssinhala/v26/1oGjBpjXvrhrRnvJppSJXYK9wxykm5Sqxg.woff2') format('woff2');
 }
+/* PWA Install Prompt Animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* PWA display mode styles */
+@media all and (display-mode: standalone) {
+  /* Styles for when app is installed */
+  body {
+    overscroll-behavior: none;
+  }
+}

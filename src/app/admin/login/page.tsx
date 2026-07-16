@@ -20,7 +20,6 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
-  // Redirect if already logged in
   React.useEffect(() => {
     if (isAuthenticated) {
       router.push("/admin");
@@ -46,7 +45,6 @@ export default function AdminLoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gold-500/10 via-background to-temple-500/10">
       <div className="w-full max-w-md">
-        {/* Logo/Title */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-block mb-6">
             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gold-500 to-gold-600 flex items-center justify-center mx-auto shadow-gold-lg">
@@ -61,10 +59,8 @@ export default function AdminLoginPage() {
           </p>
         </div>
 
-        {/* Login Card */}
         <div className="p-8 rounded-3xl bg-card border-2 border-gold-500/30 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Error Message */}
             {error && (
               <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-3">
                 <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
@@ -72,7 +68,6 @@ export default function AdminLoginPage() {
               </div>
             )}
 
-            {/* Email Field */}
             <div>
               <label
                 htmlFor="email"
@@ -103,7 +98,6 @@ export default function AdminLoginPage() {
               </div>
             </div>
 
-            {/* Password Field */}
             <div>
               <label
                 htmlFor="password"
@@ -134,7 +128,6 @@ export default function AdminLoginPage() {
               </div>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
@@ -162,7 +155,6 @@ export default function AdminLoginPage() {
             </button>
           </form>
 
-          {/* Back to site */}
           <div className="mt-6 text-center">
             <Link
               href="/"
@@ -173,7 +165,6 @@ export default function AdminLoginPage() {
           </div>
         </div>
 
-        {/* Footer */}
         <p className="text-center text-xs text-muted-foreground mt-6">
           🔒 Secure admin access
         </p>
