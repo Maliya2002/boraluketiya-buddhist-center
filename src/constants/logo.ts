@@ -4,20 +4,19 @@
 // Set LOGO_ENABLED to false to use SVG fallback (no image file needed)
 // ═══════════════════════════════════════════════════════════════
 
-// ✅ Set to FALSE to use built-in SVG fallback logo
-// Change to TRUE only when you have real logo files in public/images/logo/
-const LOGO_ENABLED = false;
+// Use the supplied logo; the component retains its SVG error fallback.
+const LOGO_ENABLED = true;
 
 export const LOGO_PATHS = {
   full: {
-    default: LOGO_ENABLED ? "/images/logo/logo-full.png" : "",
+    default: LOGO_ENABLED ? "/images/logo/logo-full.png.png" : "",
     webp: "",
   },
   white: {
-    default: LOGO_ENABLED ? "/images/logo/logo-white.png" : "",
+    default: LOGO_ENABLED ? "/images/logo/logo-full.png.png" : "",
   },
   icon: {
-    default: LOGO_ENABLED ? "/images/logo/logo-icon.png" : "",
+    default: LOGO_ENABLED ? "/images/logo/logo-full.png.png" : "",
   },
 } as const;
 

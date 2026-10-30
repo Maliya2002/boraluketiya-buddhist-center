@@ -10,7 +10,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, HelpCircle } from "lucide-react";
 import { PageHeader } from "@/components/common/page-header";
 import { RevealOnScroll } from "@/components/animations/reveal-on-scroll";
-import { cn } from "@/lib/utils";
 
 const faqs = [
   {

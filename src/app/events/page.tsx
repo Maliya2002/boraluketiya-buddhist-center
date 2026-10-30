@@ -23,7 +23,7 @@ export default function EventsPage() {
         variant="large"
       />
 
-      <EventsSection />
+      <EventsSection showViewAll={false} />
     </main>
   );
 }

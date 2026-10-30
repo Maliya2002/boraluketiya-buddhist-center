@@ -7,7 +7,7 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import Image from "next/image";
 import { Quote } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { RevealOnScroll } from "@/components/animations/reveal-on-scroll";
@@ -80,23 +80,8 @@ export function ChiefIncumbentSection({
                 {/* Decorative background */}
                 <div className="absolute -inset-6 bg-gradient-to-br from-gold-500/20 via-saffron-500/10 to-temple-500/20 rounded-3xl blur-2xl" />
 
-                <div className="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-saffron-800 via-gold-800 to-temple-700 border-2 border-gold-500/30">
-                  {/* Buddha icon placeholder */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      animate={{
-                        y: [0, -10, 0],
-                      }}
-                      transition={{
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                      className="text-9xl"
-                    >
-                      🧘
-                    </motion.div>
-                  </div>
+                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-br from-saffron-800 via-gold-800 to-temple-700 border-2 border-gold-500/30">
+                  <Image src="/images/monks/chief-incumbent-portrait.png" alt={chiefIncumbent.name[language]} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
 
                   {/* Golden aura */}
                   <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-gold-500/20" />

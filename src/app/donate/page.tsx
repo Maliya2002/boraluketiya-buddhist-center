@@ -7,7 +7,7 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { Heart, CreditCard, Building2, QrCode, Users, BookOpen, Home } from "lucide-react";
+import { Heart, Building2, Users, BookOpen, Home } from "lucide-react";
 import { PageHeader } from "@/components/common/page-header";
 import { RevealOnScroll } from "@/components/animations/reveal-on-scroll";
 import { cn } from "@/lib/utils";
@@ -41,12 +41,6 @@ const donationCauses = [
   },
 ];
 
-const paymentMethods = [
-  { icon: CreditCard, name: "Credit/Debit Card", description: "Visa, MasterCard, Amex" },
-  { icon: Building2, name: "Bank Transfer", description: "Direct to temple account" },
-  { icon: QrCode, name: "QR Code / LANKAQR", description: "Scan and pay instantly" },
-];
-
 export default function DonatePage() {
   const [selectedAmount, setSelectedAmount] = React.useState<number | null>(null);
   const [customAmount, setCustomAmount] = React.useState("");
@@ -56,7 +50,7 @@ export default function DonatePage() {
     <main className="relative">
       <PageHeader
         subtitle="Support Our Mission"
-        title="Make a Donation"
+        title="Support Our Community"
         description="Your generous contribution helps us preserve Buddhist teachings and serve our community."
         breadcrumbs={[{ label: "Donate" }]}
         variant="large"
@@ -65,7 +59,10 @@ export default function DonatePage() {
       {/* Donation form */}
       <section className="py-20">
         <div className="container-custom">
-          <div className="max-w-4xl mx-auto">
+          <form action="/contact#contact-form" method="get" className="max-w-4xl mx-auto">
+            <input type="hidden" name="subject" value={`Donation enquiry: ${selectedCause}`} />
+            <input type="hidden" name="message" value={`I would like to contribute LKR ${selectedAmount ?? customAmount} towards ${selectedCause}. Please let me know how I can donate.`} />
+            <p className="mb-8 rounded-2xl border border-gold-500/20 bg-gold-500/5 p-6 text-muted-foreground">Online payments are not available yet. Choose an amount and a cause to prepare an enquiry for the temple. No payment is taken on this website.</p>
             {/* Amount Selection */}
             <RevealOnScroll direction="up">
               <div className="p-8 rounded-3xl bg-card border-2 border-gold-500/30 mb-8">
@@ -77,6 +74,8 @@ export default function DonatePage() {
                   {donationAmounts.map((amount) => (
                     <button
                       key={amount}
+                      type="button"
+                      aria-pressed={selectedAmount === amount}
                       onClick={() => {
                         setSelectedAmount(amount);
                         setCustomAmount("");
@@ -96,6 +95,10 @@ export default function DonatePage() {
                 <div className="relative">
                   <input
                     type="number"
+                    min="1"
+                    step="0.01"
+                    required={selectedAmount === null}
+                    aria-label="Custom donation amount in Sri Lankan rupees"
                     value={customAmount}
                     onChange={(e) => {
                       setCustomAmount(e.target.value);
@@ -119,6 +122,8 @@ export default function DonatePage() {
                   {donationCauses.map((cause) => (
                     <button
                       key={cause.title}
+                      type="button"
+                      aria-pressed={selectedCause === cause.title}
                       onClick={() => setSelectedCause(cause.title)}
                       className={cn(
                         "p-6 rounded-2xl border-2 text-left transition-all duration-300",
@@ -140,50 +145,25 @@ export default function DonatePage() {
               </div>
             </RevealOnScroll>
 
-            {/* Payment Methods */}
-            <RevealOnScroll direction="up" delay={0.2}>
-              <div className="mb-8">
-                <h2 className="font-heading text-2xl text-foreground mb-6">
-                  Payment Method
-                </h2>
-
-                <div className="grid sm:grid-cols-3 gap-4">
-                  {paymentMethods.map((method) => (
-                    <div
-                      key={method.name}
-                      className="p-6 rounded-2xl border-2 border-gold-500/20 hover:border-gold-500/50 transition-all duration-300 text-center"
-                    >
-                      <method.icon className="h-10 w-10 text-gold-500 mx-auto mb-3" />
-                      <h3 className="font-semibold text-foreground text-sm mb-1">
-                        {method.name}
-                      </h3>
-                      <p className="text-xs text-muted-foreground">
-                        {method.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </RevealOnScroll>
-
             {/* Submit Button */}
             <RevealOnScroll direction="up" delay={0.3}>
               <motion.button
+                type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="w-full px-8 py-5 rounded-full bg-gradient-to-r from-gold-500 to-gold-600 text-gold-950 font-bold text-lg shadow-gold-lg hover:shadow-gold-xl transition-all duration-300 flex items-center justify-center gap-3"
               >
                 <Heart className="h-5 w-5 fill-current" />
                 <span>
-                  Donate {selectedAmount ? `Rs. ${selectedAmount.toLocaleString()}` : customAmount ? `Rs. ${customAmount}` : "Now"}
+                  Continue to Donation Enquiry
                 </span>
               </motion.button>
 
               <p className="text-center text-sm text-muted-foreground mt-4">
-                🔒 Secure donation · Tax-deductible receipt provided
+                Review your enquiry on the contact page before sending it.
               </p>
             </RevealOnScroll>
-          </div>
+          </form>
         </div>
       </section>
     </main>

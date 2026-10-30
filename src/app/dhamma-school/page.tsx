@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/common/page-header";
 import { RevealOnScroll } from "@/components/animations/reveal-on-scroll";
-import { BookOpen, Users, Award, Calendar, Download, GraduationCap, ArrowRight } from "lucide-react";
+import { BookOpen, Users, Award, Calendar, GraduationCap, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Dhamma School",
@@ -94,7 +94,7 @@ export default function DhammaSchoolPage() {
       </section>
 
       {/* Grades */}
-      <section className="py-20 bg-gradient-to-br from-gold-500/5 to-transparent">
+      <section id="classes" className="scroll-mt-24 py-20 bg-gradient-to-br from-gold-500/5 to-transparent">
         <div className="container-custom">
           <div className="text-center mb-16">
             <RevealOnScroll direction="up">
@@ -128,36 +128,26 @@ export default function DhammaSchoolPage() {
         </div>
       </section>
 
-      {/* CTAs */}
       <section className="py-20">
         <div className="container-custom">
-          <RevealOnScroll direction="up">
-            <div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-6">
-              <Link
-                href="/dhamma-school/downloads"
-                className="p-8 rounded-2xl bg-gradient-to-br from-gold-500 to-gold-600 text-gold-950 hover:shadow-gold-xl transition-all duration-500 group"
-              >
-                <Download className="h-10 w-10 mb-4" />
-                <h3 className="font-heading text-2xl mb-2">Download Resources</h3>
-                <p className="mb-4">Past papers, timetables, and study materials</p>
-                <span className="inline-flex items-center gap-2 font-semibold group-hover:gap-3 transition-all">
-                  Access Now <ArrowRight className="h-4 w-4" />
-                </span>
-              </Link>
-
-              <Link
-                href="/dhamma-school/results"
-                className="p-8 rounded-2xl bg-card border-2 border-gold-500/30 hover:border-gold-500 transition-all duration-500 group"
-              >
-                <GraduationCap className="h-10 w-10 text-gold-500 mb-4" />
-                <h3 className="font-heading text-2xl text-foreground mb-2">Exam Results</h3>
-                <p className="text-muted-foreground mb-4">View latest examination results</p>
-                <span className="inline-flex items-center gap-2 font-semibold text-gold-500 group-hover:gap-3 transition-all">
-                  View Results <ArrowRight className="h-4 w-4" />
-                </span>
-              </Link>
-            </div>
-          </RevealOnScroll>
+          <div className="text-center mb-10">
+            <p className="text-subtitle text-gold-500 mb-3">Here to Help</p>
+            <h2 className="text-h2">Support for Your <span className="text-gradient-gold">Learning Journey</span></h2>
+          </div>
+          <div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-6">
+            <Link href="/contact" className="group p-8 rounded-2xl bg-gradient-to-br from-gold-500 to-gold-600 text-gold-950 hover:shadow-gold-xl transition-shadow">
+              <BookOpen className="h-10 w-10 mb-6" />
+              <h3 className="font-heading text-2xl mb-3">Study Resources</h3>
+              <p className="mb-6 leading-relaxed">Ask the school about study materials, past papers and class timetables.</p>
+              <span className="inline-flex items-center gap-2 font-semibold">Ask About Resources <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+            </Link>
+            <Link href="/contact" className="group p-8 rounded-2xl bg-card border-2 border-gold-500/30 hover:border-gold-500 transition-colors">
+              <GraduationCap className="h-10 w-10 mb-6 text-gold-500" />
+              <h3 className="font-heading text-2xl mb-3">Exam Enquiries</h3>
+              <p className="mb-6 leading-relaxed text-muted-foreground">Contact the school for information about examinations and results.</p>
+              <span className="inline-flex items-center gap-2 font-semibold text-gold-600 dark:text-gold-400">Contact the School <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+            </Link>
+          </div>
         </div>
       </section>
     </main>

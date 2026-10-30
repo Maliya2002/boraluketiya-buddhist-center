@@ -1,3 +1,5 @@
+import { sriLankaDate } from "@/lib/event-dates";
+
 // src/data/poya-dates.ts
 // ═══════════════════════════════════════════════════════════════
 // POYA DAYS (Full Moon Days) - Buddhist Calendar
@@ -16,11 +18,11 @@ export interface PoyaDay {
   };
 }
 
-// Poya dates for 2025 (approximate - actual dates depend on lunar calendar)
-// TODO: Update with actual dates from Buddhist calendar authority
-export const poyaDates2025: PoyaDay[] = [
+// Verified 2026 holidays: https://www.cbsl.gov.lk/en/node/19362
+// Checked 2026-10-29. Add the next official calendar before this one expires.
+export const poyaDates2026: PoyaDay[] = [
   {
-    date: "2025-01-13",
+    date: "2026-01-03",
     name: { en: "Duruthu Poya", si: "දුරුතු පොහොය" },
     significance: {
       en: "Commemorates Buddha's first visit to Sri Lanka",
@@ -28,7 +30,7 @@ export const poyaDates2025: PoyaDay[] = [
     },
   },
   {
-    date: "2025-02-12",
+    date: "2026-02-01",
     name: { en: "Navam Poya", si: "නවම් පොහොය" },
     significance: {
       en: "Appointment of chief disciples",
@@ -36,7 +38,7 @@ export const poyaDates2025: PoyaDay[] = [
     },
   },
   {
-    date: "2025-03-13",
+    date: "2026-03-02",
     name: { en: "Medin Poya", si: "මැදින් පොහොය" },
     significance: {
       en: "Buddha's first visit to father's home",
@@ -44,7 +46,7 @@ export const poyaDates2025: PoyaDay[] = [
     },
   },
   {
-    date: "2025-04-12",
+    date: "2026-04-01",
     name: { en: "Bak Poya", si: "බක් පොහොය" },
     significance: {
       en: "Buddha's second visit to Sri Lanka",
@@ -52,7 +54,7 @@ export const poyaDates2025: PoyaDay[] = [
     },
   },
   {
-    date: "2025-05-11",
+    date: "2026-05-01",
     name: { en: "Vesak Poya", si: "වෙසක් පොහොය" },
     significance: {
       en: "Buddha's birth, enlightenment, and passing away",
@@ -60,7 +62,12 @@ export const poyaDates2025: PoyaDay[] = [
     },
   },
   {
-    date: "2025-06-10",
+    date: "2026-05-30",
+    name: { en: "Adhi Poson Poya", si: "අධි පොසොන් පොහොය" },
+    significance: { en: "Additional full moon Poya observance", si: "අධි පුර පසළොස්වක පොහොය දිනය" },
+  },
+  {
+    date: "2026-06-29",
     name: { en: "Poson Poya", si: "පොසොන් පොහොය" },
     significance: {
       en: "Introduction of Buddhism to Sri Lanka",
@@ -68,7 +75,7 @@ export const poyaDates2025: PoyaDay[] = [
     },
   },
   {
-    date: "2025-07-10",
+    date: "2026-07-29",
     name: { en: "Esala Poya", si: "ඇසළ පොහොය" },
     significance: {
       en: "First sermon of the Buddha",
@@ -76,7 +83,7 @@ export const poyaDates2025: PoyaDay[] = [
     },
   },
   {
-    date: "2025-08-09",
+    date: "2026-08-27",
     name: { en: "Nikini Poya", si: "නිකිණි පොහොය" },
     significance: {
       en: "First Buddhist Council",
@@ -84,7 +91,7 @@ export const poyaDates2025: PoyaDay[] = [
     },
   },
   {
-    date: "2025-09-07",
+    date: "2026-09-26",
     name: { en: "Binara Poya", si: "බිනර පොහොය" },
     significance: {
       en: "Buddha's teaching in heaven",
@@ -92,7 +99,7 @@ export const poyaDates2025: PoyaDay[] = [
     },
   },
   {
-    date: "2025-10-06",
+    date: "2026-10-25",
     name: { en: "Vap Poya", si: "වප් පොහොය" },
     significance: {
       en: "Buddha's return from heaven",
@@ -100,7 +107,7 @@ export const poyaDates2025: PoyaDay[] = [
     },
   },
   {
-    date: "2025-11-05",
+    date: "2026-11-24",
     name: { en: "Il Poya", si: "ඉල් පොහොය" },
     significance: {
       en: "Sending 60 arahants to spread Dhamma",
@@ -108,7 +115,7 @@ export const poyaDates2025: PoyaDay[] = [
     },
   },
   {
-    date: "2025-12-04",
+    date: "2026-12-23",
     name: { en: "Unduvap Poya", si: "උඳුවප් පොහොය" },
     significance: {
       en: "Arrival of Sacred Bodhi Tree in Sri Lanka",
@@ -117,18 +124,21 @@ export const poyaDates2025: PoyaDay[] = [
   },
 ];
 
-/**
- * Get the next upcoming Poya day
- * @returns Next Poya day or null if none found
- */
-export function getNextPoyaDay(): PoyaDay | null {
-  const now = new Date();
 
-  const upcoming = poyaDates2025
-    .filter((poya) => new Date(poya.date) > now)
-    .sort(
-      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-    );
+export function getNextPoyaDay(now = new Date()): PoyaDay | null {
+  const today = sriLankaDate(now);
+  return poyaDates2026.find((poya) => poya.date >= today) ?? null;
+}
 
-  return upcoming[0] || null;
+export function getPoyaCountdown(now = new Date()) {
+  const poya = getNextPoyaDay(now);
+  const isToday = poya?.date === sriLankaDate(now);
+  const remaining = poya ? Math.max(0, Math.floor((new Date(poya.date + "T00:00:00+05:30").getTime() - now.getTime()) / 1000)) : 0;
+  return {
+    poya, isToday,
+    days: Math.floor(remaining / 86400),
+    hours: Math.floor((remaining % 86400) / 3600),
+    minutes: Math.floor((remaining % 3600) / 60),
+    seconds: remaining % 60,
+  };
 }

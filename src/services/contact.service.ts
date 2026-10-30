@@ -3,7 +3,7 @@
 // CONTACT SERVICE (Supabase)
 // ═══════════════════════════════════════════════════════════════
 
-import { supabase } from "@/lib/supabase/client";
+import { getSupabaseClient } from "@/lib/supabase/client";
 
 export interface ContactMessage {
   id?: string;
@@ -23,6 +23,7 @@ export async function submitContactForm(
   data: Omit<ContactMessage, "id" | "status" | "created_at">
 ): Promise<{ success: boolean; error?: string }> {
   try {
+    const supabase = getSupabaseClient();
     const { error } = await supabase.from("contact_messages").insert([
       {
         name: data.name,

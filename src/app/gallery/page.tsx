@@ -24,8 +24,8 @@ export default function GalleryPage() {
         variant="large"
       />
 
-      <GallerySection />
-      <VideosSection />
+      <GallerySection showViewAll={false} />
+      <VideosSection showViewAll={false} />
     </main>
   );
 }

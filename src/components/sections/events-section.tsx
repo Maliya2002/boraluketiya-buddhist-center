@@ -13,24 +13,39 @@ import { Calendar, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { RevealOnScroll } from "@/components/animations/reveal-on-scroll";
 import { EventCard } from "@/components/ui/event-card";
+import { eventPeriod, sriLankaDate } from "@/lib/event-dates";
 import { upcomingEvents, eventCategories, type EventCategory } from "@/data/events-data";
 
 interface EventsSectionProps {
   className?: string;
   language?: "en" | "si";
+  showViewAll?: boolean;
 }
 
 export function EventsSection({
   className,
   language = "en",
+  showViewAll = true,
 }: EventsSectionProps) {
   const [activeCategory, setActiveCategory] = React.useState<EventCategory | "all">("all");
+  const [period, setPeriod] = React.useState<"upcoming" | "past">("upcoming");
+  const [today, setToday] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const update = () => setToday(sriLankaDate());
+    update();
+    const timer = window.setInterval(update, 60000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   // Filter events by category
   const filteredEvents = React.useMemo(() => {
-    if (activeCategory === "all") return upcomingEvents;
-    return upcomingEvents.filter((event) => event.category === activeCategory);
-  }, [activeCategory]);
+    if (!today) return [];
+    return upcomingEvents.filter((event) =>
+      (activeCategory === "all" || event.category === activeCategory) &&
+      (period === "past" ? eventPeriod(event.date, today) === "past" : eventPeriod(event.date, today) !== "past")
+    ).sort((a, b) => period === "past" ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date));
+  }, [activeCategory, period, today]);
 
   return (
     <section
@@ -38,7 +53,7 @@ export function EventsSection({
         "relative py-20 md:py-28 lg:py-32 overflow-hidden",
         className
       )}
-      aria-label="Upcoming events"
+      aria-label="Events"
     >
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
@@ -53,7 +68,7 @@ export function EventsSection({
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold-500/20 bg-gold-500/10 mb-4">
               <Calendar className="h-4 w-4 text-gold-500" />
               <p className="text-xs uppercase tracking-widest text-gold-600 font-semibold">
-                Upcoming Events
+                {period === "past" ? "Past Events" : "Upcoming Events"}
               </p>
             </div>
           </RevealOnScroll>
@@ -73,12 +88,21 @@ export function EventsSection({
           </RevealOnScroll>
         </div>
 
+        <div className="flex justify-center gap-3 mb-6" aria-label="Event dates">
+          {(["upcoming", "past"] as const).map((value) => (
+            <button key={value} type="button" aria-pressed={period === value} onClick={() => setPeriod(value)}
+              className={cn("rounded-full px-6 py-3 font-semibold border-2 transition-colors", period === value ? "bg-gold-500 border-gold-500 text-gold-950" : "border-gold-500/30 hover:bg-gold-500/10")}>
+              {value === "upcoming" ? "Today & Upcoming" : "Past Events"}
+            </button>
+          ))}
+        </div>
         {/* Category filters */}
         <RevealOnScroll direction="up" delay={0.3}>
           <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-12">
             {eventCategories.map((category) => (
               <button
                 key={category.value}
+                aria-pressed={activeCategory === category.value}
                 onClick={() =>
                   setActiveCategory(category.value as EventCategory | "all")
                 }
@@ -102,7 +126,7 @@ export function EventsSection({
         {/* Events grid */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeCategory}
+            key={`${period}-${activeCategory}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -116,7 +140,7 @@ export function EventsSection({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <EventCard event={event} language={language} />
+                <EventCard event={event} language={language} period={eventPeriod(event.date, today!)} />
               </motion.div>
             ))}
           </motion.div>
@@ -124,15 +148,15 @@ export function EventsSection({
 
         {/* Empty state */}
         {filteredEvents.length === 0 && (
-          <div className="text-center py-16">
+          <div className="text-center py-16 rounded-3xl border border-gold-500/20 bg-gold-500/5" role="status">
             <p className="text-muted-foreground">
-              No events in this category yet. Check back soon!
+              {!today ? "Loading events…" : period === "past" ? "No past events in this category." : "No upcoming events are currently listed in this category. Please check back for updates."}
             </p>
           </div>
         )}
 
         {/* View all button */}
-        {filteredEvents.length > 0 && (
+        {showViewAll && (
           <RevealOnScroll direction="up" delay={0.4}>
             <div className="text-center mt-12">
               <Link

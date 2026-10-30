@@ -1,196 +1,175 @@
-// src/data/gallery-data.ts
-// ═══════════════════════════════════════════════════════════════
-// GALLERY DATA
-// Photo albums and images
-// ═══════════════════════════════════════════════════════════════
-
-export type GalleryCategory =
-  | "all"
-  | "temple"
-  | "events"
-  | "school"
-  | "youth"
-  | "nature";
+export type GalleryCategory = "all" | "temple" | "blessings" | "community";
 
 export interface GalleryImage {
   id: string;
   src: string;
   alt: string;
-  title: {
-    en: string;
-    si: string;
-  };
+  title: { en: string; si: string };
   category: GalleryCategory;
   width: number;
   height: number;
   date?: string;
+  year?: number;
 }
 
 export const galleryCategories = [
-  { value: "all", label: { en: "All Photos", si: "සියලු ඡායාරූප" } },
-  { value: "temple", label: { en: "Temple", si: "විහාරය" } },
-  { value: "events", label: { en: "Events", si: "වැඩසටහන්" } },
-  { value: "school", label: { en: "Dhamma School", si: "ධර්ම පාසල" } },
-  { value: "youth", label: { en: "Youth Activities", si: "තරුණ ක්‍රියාකාරකම්" } },
-  { value: "nature", label: { en: "Nature", si: "සොභාදහම" } },
+  {
+    "value": "all",
+    "label": {
+      "en": "All Photos",
+      "si": "සියලු ඡායාරූප"
+    }
+  },
+  {
+    "value": "temple",
+    "label": {
+      "en": "Our Temple",
+      "si": "අපේ විහාරය"
+    }
+  },
+  {
+    "value": "blessings",
+    "label": {
+      "en": "January 1 Blessings · 2026",
+      "si": "ජනවාරි 1 ආශිර්වාද පූජාව · 2026"
+    }
+  },
+  {
+    "value": "community",
+    "label": {
+      "en": "Andarwewa Children’s Day · 2026",
+      "si": "අන්දරවැව ළමා දිනය · 2026"
+    }
+  }
 ];
 
-// Using Unsplash images with varying dimensions for masonry layout
 export const galleryImages: GalleryImage[] = [
   {
-    id: "1",
-    src: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=85",
-    alt: "Buddhist temple at sunset",
-    title: {
-      en: "Sacred Temple at Dusk",
-      si: "සන්ධ්‍යාවේ පවිත්‍ර විහාරය",
+    "id": "temple-night",
+    "src": "/images/gallery/temple-night.jpg",
+    "alt": "Temple illuminated at night",
+    "title": {
+      "en": "Temple illuminated at night",
+      "si": "රාත්‍රියේ ආලෝකමත් විහාරය"
     },
-    category: "temple",
-    width: 800,
-    height: 1200,
-    date: "2024-11-15",
+    "category": "temple",
+    "width": 2048,
+    "height": 1536
   },
   {
-    id: "2",
-    src: "https://images.unsplash.com/photo-1552083375-1447ce886485?w=800&q=85",
-    alt: "Buddha statue",
-    title: {
-      en: "Golden Buddha Statue",
-      si: "රන්වන් බුදු පිළිමය",
+    "id": "temple-bodhi",
+    "src": "/images/gallery/temple-bodhi.jpg",
+    "alt": "The illuminated Bodhi tree",
+    "title": {
+      "en": "The illuminated Bodhi tree",
+      "si": "ආලෝකමත් බෝධීන් වහන්සේ"
     },
-    category: "temple",
-    width: 800,
-    height: 800,
-    date: "2024-10-20",
+    "category": "temple",
+    "width": 2048,
+    "height": 1536
   },
   {
-    id: "3",
-    src: "https://images.unsplash.com/photo-1531938716357-224c16b0286c?w=800&q=85",
-    alt: "Temple architecture",
-    title: {
-      en: "Ancient Architecture",
-      si: "පුරාණ ගෘහ නිර්මාණ ශිල්පය",
+    "id": "new-year-blessings-01",
+    "src": "/images/gallery/new-year-blessings-01.jpg",
+    "alt": "Devotees at the New Year blessing ceremony",
+    "title": {
+      "en": "Devotees at the New Year blessing ceremony",
+      "si": "නව වසරේ ආශිර්වාද පූජාවට එක් වූ බැතිමතුන්"
     },
-    category: "temple",
-    width: 800,
-    height: 1000,
-    date: "2024-09-10",
+    "category": "blessings",
+    "width": 1536,
+    "height": 2048,
+    "date": "2026-01-01"
   },
   {
-    id: "4",
-    src: "https://images.unsplash.com/photo-1545389336-cf090694435e?w=800&q=85",
-    alt: "Meditation session",
-    title: {
-      en: "Group Meditation",
-      si: "සමූහ භාවනාව",
+    "id": "new-year-blessings-02",
+    "src": "/images/gallery/new-year-blessings-02.jpg",
+    "alt": "New Year blessing ceremony",
+    "title": {
+      "en": "New Year blessing ceremony",
+      "si": "නව වසරේ ආශිර්වාද පූජාව"
     },
-    category: "events",
-    width: 800,
-    height: 600,
-    date: "2024-12-01",
+    "category": "blessings",
+    "width": 1536,
+    "height": 2048,
+    "date": "2026-01-01"
   },
   {
-    id: "5",
-    src: "https://images.unsplash.com/photo-1509233725247-49e657c54213?w=800&q=85",
-    alt: "Buddhist festival",
-    title: {
-      en: "Vesak Celebrations",
-      si: "වෙසක් සැමරුම්",
+    "id": "andarwewa-childrens-day-01",
+    "src": "/images/gallery/andarwewa-childrens-day-01.jpg",
+    "alt": "Sharing gifts at Andarwewa Junior School",
+    "title": {
+      "en": "Sharing gifts at Andarwewa Junior School",
+      "si": "අන්දරවැව කනිෂ්ඨ විද්‍යාලයේ තෑගි බෙදාදීම"
     },
-    category: "events",
-    width: 800,
-    height: 1100,
-    date: "2024-05-23",
+    "category": "community",
+    "width": 1920,
+    "height": 1440,
+    "year": 2026
   },
   {
-    id: "6",
-    src: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=85",
-    alt: "Students in class",
-    title: {
-      en: "Dhamma School Students",
-      si: "ධර්ම පාසල් සිසුන්",
+    "id": "andarwewa-childrens-day-02",
+    "src": "/images/gallery/andarwewa-childrens-day-02.jpg",
+    "alt": "Children celebrating with their gifts",
+    "title": {
+      "en": "Children celebrating with their gifts",
+      "si": "තෑගි සමඟ සතුටු වන දරුවන්"
     },
-    category: "school",
-    width: 800,
-    height: 900,
-    date: "2024-08-15",
+    "category": "community",
+    "width": 1920,
+    "height": 1440,
+    "year": 2026
   },
   {
-    id: "7",
-    src: "https://images.unsplash.com/photo-1615461066841-6116e61058f4?w=800&q=85",
-    alt: "Youth activity",
-    title: {
-      en: "Community Service",
-      si: "ප්‍රජා සේවා",
+    "id": "andarwewa-childrens-day-03",
+    "src": "/images/gallery/andarwewa-childrens-day-03.jpg",
+    "alt": "Children’s Day gathering at Andarwewa",
+    "title": {
+      "en": "Children’s Day gathering at Andarwewa",
+      "si": "අන්දරවැව ළමා දින එකමුතුව"
     },
-    category: "youth",
-    width: 800,
-    height: 700,
-    date: "2024-07-20",
+    "category": "community",
+    "width": 1920,
+    "height": 1440,
+    "year": 2026
   },
   {
-    id: "8",
-    src: "https://images.unsplash.com/photo-1520262454473-a1a82276a574?w=800&q=85",
-    alt: "Temple gardens",
-    title: {
-      en: "Peaceful Gardens",
-      si: "සාමකාමී උද්‍යාන",
+    "id": "andarwewa-childrens-day-04",
+    "src": "/images/gallery/andarwewa-childrens-day-04.jpg",
+    "alt": "Smiles from the Children’s Day visit",
+    "title": {
+      "en": "Smiles from the Children’s Day visit",
+      "si": "ළමා දින චාරිකාවේ සතුටු සිනා"
     },
-    category: "nature",
-    width: 800,
-    height: 1000,
-    date: "2024-06-10",
+    "category": "community",
+    "width": 1440,
+    "height": 1920,
+    "year": 2026
   },
   {
-    id: "9",
-    src: "https://images.unsplash.com/photo-1547573854-74d2a71d0826?w=800&q=85",
-    alt: "Dansal preparation",
-    title: {
-      en: "Dansal Preparation",
-      si: "දන්සල් සැකසීම",
+    "id": "andarwewa-childrens-day-05",
+    "src": "/images/gallery/andarwewa-childrens-day-05.jpg",
+    "alt": "Gift presentation at the school",
+    "title": {
+      "en": "Gift presentation at the school",
+      "si": "පාසලේ තෑගි ප්‍රදානය"
     },
-    category: "events",
-    width: 800,
-    height: 800,
-    date: "2024-05-11",
+    "category": "community",
+    "width": 1920,
+    "height": 1440,
+    "year": 2026
   },
   {
-    id: "10",
-    src: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=85",
-    alt: "Lotus flowers",
-    title: {
-      en: "Sacred Lotus",
-      si: "පවිත්‍ර නෙළුම්",
+    "id": "andarwewa-childrens-day-06",
+    "src": "/images/gallery/andarwewa-childrens-day-06.jpg",
+    "alt": "A moment from the school visit",
+    "title": {
+      "en": "A moment from the school visit",
+      "si": "පාසල් චාරිකාවේ මතකයක්"
     },
-    category: "nature",
-    width: 800,
-    height: 1200,
-    date: "2024-04-05",
-  },
-  {
-    id: "11",
-    src: "https://images.unsplash.com/photo-1518709414768-a88981a4515d?w=800&q=85",
-    alt: "Monk walking",
-    title: {
-      en: "Morning Alms Round",
-      si: "උදෑසන පිඬු පිණිස",
-    },
-    category: "temple",
-    width: 800,
-    height: 900,
-    date: "2024-03-20",
-  },
-  {
-    id: "12",
-    src: "https://images.unsplash.com/photo-1571746054080-46e5b7e9c0e6?w=800&q=85",
-    alt: "Prayer flags",
-    title: {
-      en: "Buddhist Prayer Flags",
-      si: "බෞද්ධ ප්‍රාර්ථනා කොඩි",
-    },
-    category: "temple",
-    width: 800,
-    height: 600,
-    date: "2024-02-14",
-  },
+    "category": "community",
+    "width": 1920,
+    "height": 1440,
+    "year": 2026
+  }
 ];

@@ -1,14 +1,6 @@
-// src/components/ui/gallery-image.tsx
-// ═══════════════════════════════════════════════════════════════
-// GALLERY IMAGE
-// Image card with hover effects and click to open lightbox
-// ═══════════════════════════════════════════════════════════════
-
 "use client";
 
-import * as React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Maximize2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { GalleryImage as GalleryImageType } from "@/data/gallery-data";
@@ -20,61 +12,41 @@ interface GalleryImageProps {
   className?: string;
 }
 
-export function GalleryImage({
-  image,
-  language = "en",
-  onClick,
-  className,
-}: GalleryImageProps) {
+export function GalleryImage({ image, language = "en", onClick, className }: GalleryImageProps) {
   return (
-    <motion.button
+    <button
+      type="button"
       onClick={onClick}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ duration: 0.3 }}
+      aria-label={language === "si" ? image.title.si + " — විශාල කර බලන්න" : "View photo: " + image.title.en}
       className={cn(
-        "group relative w-full overflow-hidden rounded-2xl",
-        "bg-muted",
-        "cursor-pointer",
-        "focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-4",
+        "group w-full overflow-hidden rounded-2xl border border-gold-500/20 bg-background text-left shadow-sm transition-shadow hover:shadow-lg",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-4",
         className
       )}
-      style={{
-        aspectRatio: `${image.width} / ${image.height}`,
-      }}
     >
-      <Image
-        src={image.src}
-        alt={image.alt}
-        fill
-        quality={85}
-        className="object-cover transition-transform duration-700 group-hover:scale-110"
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        unoptimized={image.src.startsWith("http")}
-      />
-
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-      {/* Zoom icon */}
-      <div className="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 -translate-y-2 group-hover:translate-y-0">
-        <Maximize2 className="h-4 w-4 text-foreground" />
-      </div>
-
-      {/* Title on hover */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-        <h3
-          className={cn(
-            "text-white font-heading text-lg font-medium",
-            language === "si" && "sinhala"
-          )}
-        >
+      <span className="relative block overflow-hidden" style={{ aspectRatio: image.width + " / " + image.height }}>
+        <Image
+          src={image.src}
+          alt={image.alt}
+          fill
+          quality={85}
+          className="object-contain"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
+        <span className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white">
+          <Maximize2 className="h-4 w-4" aria-hidden="true" />
+        </span>
+      </span>
+      <span className="block p-4">
+        {(image.date || image.year) && (
+          <span className="mb-1 block text-xs font-semibold text-gold-600 dark:text-gold-400">
+            {image.date ? (language === "si" ? "2026 ජනවාරි 1" : "1 January 2026") : image.year}
+          </span>
+        )}
+        <span className={cn("block font-heading text-lg font-medium text-foreground", language === "si" && "sinhala")}>
           {image.title[language]}
-        </h3>
-      </div>
-
-      {/* Gold corner accent */}
-      <div className="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-gold-500/0 group-hover:border-gold-500/80 rounded-tl-xl transition-all duration-500" />
-    </motion.button>
+        </span>
+      </span>
+    </button>
   );
 }

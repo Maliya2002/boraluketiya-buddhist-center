@@ -85,7 +85,7 @@ export default function YouthAssociationPage() {
       </section>
 
       {/* Projects */}
-      <section className="py-20">
+      <section id="projects" className="scroll-mt-24 py-20">
         <div className="container-custom">
           <div className="text-center mb-16">
             <RevealOnScroll direction="up">
@@ -135,10 +135,10 @@ export default function YouthAssociationPage() {
                 Be part of something meaningful. Volunteer, learn, and grow with like-minded youth committed to Buddhist values and community service.
               </p>
               <Link
-                href="/youth-association/volunteer"
+                href="/contact"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gold-500 text-gold-950 font-semibold hover:bg-gold-600 hover:shadow-gold-md transition-all duration-300 group"
               >
-                <span>Become a Volunteer</span>
+                <span>Ask About Volunteering</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>

@@ -35,6 +35,7 @@ export function VideoCard({
 
   return (
     <motion.button
+      type="button"
       onClick={onClick}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.3 }}
@@ -73,10 +74,13 @@ export function VideoCard({
         </div>
 
         {/* Duration */}
+        {video.duration && (
         <div className="absolute bottom-3 right-3 px-2 py-1 bg-black/80 backdrop-blur-sm text-white text-xs font-medium rounded-md flex items-center gap-1">
           <Clock className="h-3 w-3" />
           {video.duration}
         </div>
+
+        )}
 
         {/* Featured badge */}
         {video.featured && (
@@ -116,18 +120,22 @@ export function VideoCard({
 
         {/* Meta */}
         <div className="flex items-center gap-4 text-xs text-muted-foreground">
-          <div className="flex items-center gap-1">
+          {video.views !== undefined && <div className="flex items-center gap-1">
             <Eye className="h-3 w-3" />
             <span>{formatViews(video.views)} views</span>
           </div>
-          <span>•</span>
+          }
+          {video.views !== undefined && video.date && <span>•</span>}
+          {video.date && (
           <span>
             {new Date(video.date).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
               year: "numeric",
+              timeZone: "UTC",
             })}
           </span>
+          )}
         </div>
       </div>
     </motion.button>

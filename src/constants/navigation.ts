@@ -100,36 +100,14 @@ export const mainNavLinks: NavLink[] = [
         },
       },
       {
-        href: "/dhamma-school/classes",
+        href: "/dhamma-school#classes",
         label: {
           en: "Classes",
           si: "පන්ති",
         },
         description: {
-          en: "View class schedules",
-          si: "පන්ති කාලසටහන් බලන්න",
-        },
-      },
-      {
-        href: "/dhamma-school/teachers",
-        label: {
-          en: "Teachers",
-          si: "ගුරුවරු",
-        },
-        description: {
-          en: "Meet our dedicated teachers",
-          si: "අපගේ කැපවූ ගුරුවරු හඳුනාගන්න",
-        },
-      },
-      {
-        href: "/dhamma-school/results",
-        label: {
-          en: "Exam Results",
-          si: "විභාග ප්‍රතිඵල",
-        },
-        description: {
-          en: "View student achievements",
-          si: "ශිෂ්‍ය ජයග්‍රහණ බලන්න",
+          en: "Explore grade levels",
+          si: "ශ්‍රේණි බලන්න",
         },
       },
     ],
@@ -153,7 +131,7 @@ export const mainNavLinks: NavLink[] = [
         },
       },
       {
-        href: "/youth-association/projects",
+        href: "/youth-association#projects",
         label: {
           en: "Projects",
           si: "ව්‍යාපෘති",
@@ -164,13 +142,13 @@ export const mainNavLinks: NavLink[] = [
         },
       },
       {
-        href: "/youth-association/volunteer",
+        href: "/contact",
         label: {
           en: "Volunteer",
           si: "ස්වෙච්ඡා",
         },
         description: {
-          en: "Join our volunteer program",
+          en: "Ask about volunteering",
           si: "අපගේ ස්වෙච්ඡා වැඩසටහනට එකතු වන්න",
         },
       },

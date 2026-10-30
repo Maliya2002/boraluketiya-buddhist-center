@@ -3,7 +3,7 @@
 // NEWSLETTER SERVICE (Supabase)
 // ═══════════════════════════════════════════════════════════════
 
-import { supabase } from "@/lib/supabase/client";
+import { getSupabaseClient } from "@/lib/supabase/client";
 
 /**
  * Subscribe to newsletter
@@ -19,6 +19,7 @@ export async function subscribeToNewsletter(
       return { success: false, error: "Invalid email address" };
     }
 
+    const supabase = getSupabaseClient();
     const { error } = await supabase.from("newsletter_subscribers").insert([
       {
         email: email.toLowerCase().trim(),

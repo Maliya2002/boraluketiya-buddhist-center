@@ -49,8 +49,8 @@ export const siteConfig = {
   },
 
   contact: {
-    phone: "+94 41 XXX XXXX",
-    whatsapp: "+94XXXXXXXXX",
+    phone: "+94 78 625 7257",
+    whatsapp: "+94786257257",
     email: "info@boralukatiya.lk",
   },
 
@@ -58,7 +58,7 @@ export const siteConfig = {
     facebook: "https://facebook.com/boralukatiyabuddhistcenter",
     youtube: "https://youtube.com/@boralukatiya",
     instagram: "https://instagram.com/boralukatiya",
-    whatsapp: "https://wa.me/94XXXXXXXXX",
+    whatsapp: "https://wa.me/94786257257",
   },
 
   organizations: {
@@ -82,7 +82,7 @@ export const siteConfig = {
     },
   } as Record<string, Organization>,
 
-  ogImage: "/images/og/og-default.jpg",
+  ogImage: "/images/gallery/temple-night.jpg",
 } as const;
 
 export type SiteConfig = typeof siteConfig;

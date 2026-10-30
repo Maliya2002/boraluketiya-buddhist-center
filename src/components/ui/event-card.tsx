@@ -18,16 +18,18 @@ interface EventCardProps {
   event: EventData;
   language?: "en" | "si";
   className?: string;
+  period: "past" | "today" | "upcoming";
 }
 
 export function EventCard({
   event,
   language = "en",
   className,
+  period,
 }: EventCardProps) {
   const date = new Date(event.date);
-  const day = date.getDate();
-  const month = date.toLocaleDateString("en-US", { month: "short" });
+  const day = date.getUTCDate();
+  const month = date.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" });
 
   const categoryColors: Record<string, string> = {
     poya: "bg-gold-500/10 text-gold-500 border-gold-500/30",
@@ -113,6 +115,9 @@ export function EventCard({
 
       {/* Content */}
       <div className="p-6">
+        <p className="text-xs font-semibold uppercase tracking-wider text-gold-600 dark:text-gold-400 mb-3">
+          {period === "past" ? "Past event" : period === "today" ? "Today" : "Upcoming"} · {date.getUTCFullYear()}
+        </p>
         {/* Title */}
         <h3
           className={cn(
@@ -152,7 +157,7 @@ export function EventCard({
           </div>
 
           {/* Attendees */}
-          {event.attendees !== undefined && event.maxAttendees && (
+          {period !== "past" && event.attendees !== undefined && event.maxAttendees && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Users className="h-4 w-4 text-gold-500 flex-shrink-0" />
               <span>
@@ -163,7 +168,7 @@ export function EventCard({
         </div>
 
         {/* Attendance bar */}
-        {attendancePercent > 0 && (
+        {period !== "past" && attendancePercent > 0 && (
           <div className="mb-4">
             <div className="h-1.5 bg-gold-500/10 rounded-full overflow-hidden">
               <motion.div
@@ -182,7 +187,7 @@ export function EventCard({
           href={`/events/${event.id}`}
           className="inline-flex items-center gap-2 text-sm font-medium text-gold-500 hover:text-gold-600 transition-colors group/link"
         >
-          <span>Learn More & Register</span>
+          <span>View Event Details</span>
           <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
         </Link>
       </div>

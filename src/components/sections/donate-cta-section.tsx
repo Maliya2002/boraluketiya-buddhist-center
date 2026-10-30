@@ -20,7 +20,6 @@ interface DonateCtaSectionProps {
 
 export function DonateCtaSection({
   className,
-  language = "en",
 }: DonateCtaSectionProps) {
   const features = [
     { icon: Heart, text: "One-Time or Monthly" },

@@ -31,12 +31,8 @@ export function MobileNav({ className, language = "en" }: MobileNavProps) {
   );
   const pathname = usePathname();
 
-  // Close menu on navigation only if it's open to avoid unnecessary state updates
+  // Close on route changes, not when the user opens the menu.
   React.useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
     const rafId = window.requestAnimationFrame(() => {
       setIsOpen(false);
     });
@@ -44,7 +40,7 @@ export function MobileNav({ className, language = "en" }: MobileNavProps) {
     return () => {
       window.cancelAnimationFrame(rafId);
     };
-  }, [pathname, isOpen]);
+  }, [pathname]);
 
   // Lock body scroll when menu is open
   React.useEffect(() => {
@@ -184,7 +180,7 @@ export function MobileNav({ className, language = "en" }: MobileNavProps) {
                       <div className="flex items-center">
                         <Link
                           href={link.href}
-                          onClick={() => !hasChildren && setIsOpen(false)}
+                          onClick={() => setIsOpen(false)}
                           className={cn(
                             "flex-1 flex items-center gap-3",
                             "px-4 py-3 rounded-xl",

@@ -30,7 +30,7 @@ const heroContent = {
       "A sanctuary of peace, wisdom, and compassion in the sacred land of Kamburupitiya. Discover the ancient teachings of the Buddha and find your path to enlightenment.",
     primaryCta: "Explore Our Temple",
     secondaryCta: "Support Our Mission",
-    trustIndicator: "Live Streaming Available",
+    trustIndicator: "Temple & Community Moments",
   },
   si: {
     subtitle: "පවිත්‍ර ප්‍රඥාව · සදාකාලික සාමය",
@@ -42,7 +42,7 @@ const heroContent = {
       "කඹුරුපිටියේ පවිත්‍ර භූමියේ පිහිටි සාමය, ප්‍රඥාව සහ කරුණාවේ අභයභූමියකි. බුදුරජාණන් වහන්සේගේ පැරණි ඉගැන්වීම් සොයාගෙන ඔබේ මාර්ගය සොයාගන්න.",
     primaryCta: "අපගේ විහාරය බලන්න",
     secondaryCta: "දායකත්වය",
-    trustIndicator: "සජීවී ප්‍රවාහනය",
+    trustIndicator: "විහාරයේ සහ ප්‍රජාවේ මතකයන්",
   },
 };
 
@@ -176,18 +176,11 @@ export function HeroContent({
         </div>
       </FadeInText>
 
-      {/* Trust indicators */}
       <FadeInText delay={2.6} duration={0.8}>
-        <div className="mt-12 flex items-center gap-6 text-white/60 text-sm">
-          <div className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-bodhi-500 animate-pulse" />
-            <span className={cn(isSinhala && "sinhala")}>
-              {content.trustIndicator}
-            </span>
-          </div>
-          <div className="hidden sm:block h-4 w-px bg-white/20" />
-          <span className="hidden sm:block">✨ 2568 BE</span>
-        </div>
+        <Link href="/gallery" className={cn("mt-12 inline-flex min-h-11 items-center gap-2 text-sm text-white/80 underline decoration-gold-500/50 underline-offset-4 hover:text-white", isSinhala && "sinhala")}>
+          {content.trustIndicator}
+          <ArrowRight className="h-4 w-4 text-gold-500" aria-hidden="true" />
+        </Link>
       </FadeInText>
     </div>
   );

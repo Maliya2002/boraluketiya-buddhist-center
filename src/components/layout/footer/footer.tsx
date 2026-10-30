@@ -63,7 +63,7 @@ export function Footer({ className, language = "en" }: FooterProps) {
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <Phone className="h-5 w-5 text-gold-500 flex-shrink-0" />
                 <Link
-                  href={`tel:${siteConfig.contact.phone}`}
+                  href={`tel:${siteConfig.contact.phone.replace(/\s/g, "")}`}
                   className="hover:text-gold-500 transition-colors"
                 >
                   {siteConfig.contact.phone}
@@ -134,7 +134,7 @@ export function Footer({ className, language = "en" }: FooterProps) {
                 </li>
                 <li>
                   <Link
-                    href="/youth-association/volunteer"
+                    href="/contact"
                     className="text-sm text-muted-foreground hover:text-gold-500 transition-colors flex items-center gap-2 group"
                   >
                     <span className="h-1 w-1 rounded-full bg-gold-500/50 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -189,12 +189,6 @@ export function Footer({ className, language = "en" }: FooterProps) {
               className="text-muted-foreground hover:text-gold-500 transition-colors"
             >
               Privacy
-            </Link>
-            <Link
-              href="/terms"
-              className="text-muted-foreground hover:text-gold-500 transition-colors"
-            >
-              Terms
             </Link>
           </div>
         </div>

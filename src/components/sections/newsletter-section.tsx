@@ -19,7 +19,6 @@ interface NewsletterSectionProps {
 
 export function NewsletterSection({
   className,
-  language = "en",
 }: NewsletterSectionProps) {
   const [email, setEmail] = React.useState("");
   const [status, setStatus] = React.useState<"idle" | "loading" | "success">(

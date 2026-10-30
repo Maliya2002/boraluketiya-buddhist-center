@@ -210,7 +210,7 @@ export function Logo({
             draggable={false}
             onError={() => setImageError(true)}
             className={cn(
-              "h-full w-full object-contain",
+              "h-full w-full object-contain rounded-full bg-white",
               "transition-all duration-500",
               isHovered && glowOnHover && "brightness-110"
             )}

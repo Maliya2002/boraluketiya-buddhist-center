@@ -7,8 +7,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Keep builds and output tracing inside this standalone project.
+  outputFileTracingRoot: __dirname,
   // ✅ Turbopack configuration (Next.js 16 default)
   turbopack: {
+    root: __dirname,
     // Add turbopack-specific rules if needed
     rules: {
       "*.svg": {

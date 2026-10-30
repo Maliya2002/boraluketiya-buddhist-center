@@ -8,7 +8,6 @@
 
 import * as React from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { motion } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { RevealOnScroll } from "@/components/animations/reveal-on-scroll";

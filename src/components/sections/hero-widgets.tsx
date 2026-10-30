@@ -9,7 +9,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { CurrentTime } from "@/components/widgets/current-time";
-import { WeatherWidget } from "@/components/widgets/weather-widget";
+import { TempleLocation } from "@/components/widgets/temple-location";
 import { PoyaCountdown } from "@/components/widgets/poya-countdown";
 
 interface HeroWidgetsProps {
@@ -63,7 +63,7 @@ export function HeroWidgets({ language, className }: HeroWidgetsProps) {
       }}
     >
       <CurrentTime />
-      <WeatherWidget />
+      <TempleLocation language={language} />
       <PoyaCountdown language={language} />
     </div>
   );

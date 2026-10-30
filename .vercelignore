@@ -1,0 +1,5 @@
+.env*
+REVIEW.md
+gallery-preview.jpg
+*.tsbuildinfo
+.git

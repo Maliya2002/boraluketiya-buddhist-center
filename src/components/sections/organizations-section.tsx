@@ -52,7 +52,6 @@ const organizationsData = [
 
 export function OrganizationsSection({
   className,
-  language = "en",
 }: OrganizationsSectionProps) {
   return (
     <section

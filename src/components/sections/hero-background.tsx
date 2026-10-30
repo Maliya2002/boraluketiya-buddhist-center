@@ -17,11 +17,10 @@ interface HeroBackgroundProps {
   className?: string;
 }
 
-// ✅ Using Unsplash images temporarily (until you add your own)
+// Temple photographs supplied with the project.
 const DEFAULT_IMAGES = [
-  "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1920&q=80&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1552083375-1447ce886485?w=1920&q=80&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1531938716357-224c16b0286c?w=1920&q=80&auto=format&fit=crop",
+  "/images/gallery/temple-night.jpg",
+  "/images/gallery/temple-bodhi.jpg",
 ];
 
 export function HeroBackground({
@@ -30,17 +29,18 @@ export function HeroBackground({
   className,
 }: HeroBackgroundProps) {
   const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
 
   // Auto-play slideshow
   React.useEffect(() => {
-    if (images.length <= 1) return;
+    if (images.length <= 1 || paused) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, autoPlayInterval);
 
     return () => clearInterval(interval);
-  }, [images.length, autoPlayInterval]);
+  }, [images.length, autoPlayInterval, paused]);
 
   return (
     <div
@@ -50,7 +50,6 @@ export function HeroBackground({
         "bg-gradient-to-br from-temple-900 via-gold-900/40 to-temple-800",
         className
       )}
-      aria-hidden="true"
     >
       {/* Background images with Ken Burns effect */}
       <AnimatePresence mode="sync">
@@ -95,19 +94,31 @@ export function HeroBackground({
 
       {/* Slide indicators */}
       {images.length > 1 && (
-        <div className="absolute bottom-20 right-8 flex flex-col gap-2 z-10">
+        <div className="absolute bottom-4 right-4 flex items-center gap-2 z-20">
+          <button
+            type="button"
+            onClick={() => setPaused((value) => !value)}
+            className="min-h-11 rounded-full bg-black/60 px-3 text-xs text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-500"
+            aria-label={paused ? "Play temple slideshow" : "Pause temple slideshow"}
+          >
+            {paused ? "Play" : "Pause"}
+          </button>
           {images.map((_, index) => (
             <button
               key={index}
+              type="button"
               onClick={() => setCurrentIndex(index)}
               className={cn(
-                "h-8 w-1 rounded-full transition-all duration-500",
+                "h-11 w-11 rounded-full border transition-all duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white",
                 index === currentIndex
-                  ? "bg-gold-500 h-12"
-                  : "bg-white/30 hover:bg-white/50"
+                  ? "bg-gold-500 text-gold-950 border-gold-500"
+                  : "bg-black/50 text-white border-white/40 hover:bg-black/70"
               )}
               aria-label={`Go to slide ${index + 1}`}
-            />
+              aria-pressed={index === currentIndex}
+            >
+              {index + 1}
+            </button>
           ))}
         </div>
       )}

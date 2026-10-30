@@ -11,7 +11,9 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Camera, ArrowRight } from "lucide-react";
 import Lightbox from "yet-another-react-lightbox";
+import Captions from "yet-another-react-lightbox/plugins/captions";
 import "yet-another-react-lightbox/styles.css";
+import "yet-another-react-lightbox/plugins/captions.css";
 
 import { cn } from "@/lib/utils";
 import { RevealOnScroll } from "@/components/animations/reveal-on-scroll";
@@ -25,11 +27,13 @@ import {
 interface GallerySectionProps {
   className?: string;
   language?: "en" | "si";
+  showViewAll?: boolean;
 }
 
 export function GallerySection({
   className,
   language = "en",
+  showViewAll = true,
 }: GallerySectionProps) {
   const [activeCategory, setActiveCategory] =
     React.useState<GalleryCategory>("all");
@@ -53,8 +57,9 @@ export function GallerySection({
 
   return (
     <section
+      id="photos"
       className={cn(
-        "relative py-20 md:py-28 lg:py-32 overflow-hidden",
+        "relative scroll-mt-24 py-20 md:py-28 lg:py-32 overflow-hidden",
         "bg-gradient-to-b from-transparent via-gold-500/5 to-transparent",
         className
       )}
@@ -93,6 +98,8 @@ export function GallerySection({
             {galleryCategories.map((category) => (
               <button
                 key={category.value}
+                type="button"
+                aria-pressed={activeCategory === category.value}
                 onClick={() =>
                   setActiveCategory(category.value as GalleryCategory)
                 }
@@ -154,7 +161,7 @@ export function GallerySection({
         )}
 
         {/* View all button */}
-        {filteredImages.length > 0 && (
+        {showViewAll && filteredImages.length > 0 && (
           <RevealOnScroll direction="up" delay={0.4}>
             <div className="text-center mt-12">
               <Link
@@ -177,6 +184,7 @@ export function GallerySection({
 
         {/* Lightbox */}
         <Lightbox
+          plugins={[Captions]}
           open={lightboxOpen}
           close={() => setLightboxOpen(false)}
           index={lightboxIndex}

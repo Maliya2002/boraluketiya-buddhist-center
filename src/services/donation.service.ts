@@ -3,7 +3,7 @@
 // DONATION SERVICE (Supabase)
 // ═══════════════════════════════════════════════════════════════
 
-import { supabase } from "@/lib/supabase/client";
+import { getSupabaseClient } from "@/lib/supabase/client";
 
 export interface Donation {
   donor_name: string;
@@ -24,6 +24,7 @@ export async function recordDonation(
   data: Donation
 ): Promise<{ success: boolean; id?: string; error?: string }> {
   try {
+    const supabase = getSupabaseClient();
     const { data: result, error } = await supabase
       .from("donations")
       .insert([

@@ -26,12 +26,14 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Call Us",
-    lines: [siteConfig.contact.phone, "Available 6 AM - 9 PM"],
+    lines: [siteConfig.contact.phone],
+    href: `tel:${siteConfig.contact.phone.replace(/\s/g, "")}`,
   },
   {
     icon: Mail,
     title: "Email Us",
-    lines: [siteConfig.contact.email, "Response within 24 hours"],
+    lines: [siteConfig.contact.email],
+    href: `mailto:${siteConfig.contact.email}`,
   },
   {
     icon: Clock,
@@ -49,9 +51,22 @@ export default function ContactPage() {
     message: "",
   });
   const [status, setStatus] = React.useState<"idle" | "sending" | "sent">("idle");
+  const [errorMessage, setErrorMessage] = React.useState("");
+
+  React.useEffect(() => {
+    // The donation enquiry uses a GET navigation, without transmitting personal data.
+    const query = new URLSearchParams(window.location.search);
+    const subject = query.get("subject")?.slice(0, 200) || "";
+    const message = query.get("message")?.slice(0, 2000) || "";
+    if (subject || message) {
+      setFormData((current) => ({ ...current, subject, message }));
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+  if (status === "sending") return;
+  setErrorMessage("");
   setStatus("sending");
 
   try {
@@ -71,11 +86,12 @@ export default function ContactPage() {
       setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
       setTimeout(() => setStatus("idle"), 3000);
     } else {
-      alert(result.error || "Failed to send message");
+      setErrorMessage(result.error || "Failed to send message. Please try again.");
       setStatus("idle");
     }
   } catch (error) {
     console.error("Contact form error:", error);
+    setErrorMessage("Unable to send your message. Please try again.");
     setStatus("idle");
   }
 };
@@ -105,7 +121,11 @@ export default function ContactPage() {
                   </h3>
                   {info.lines.map((line, i) => (
                     <p key={i} className="text-sm text-muted-foreground">
-                      {line}
+                      {i === 0 && info.href ? (
+                        <a href={info.href} className="underline decoration-gold-500/40 underline-offset-4 hover:text-gold-500">
+                          {line}
+                        </a>
+                      ) : line}
                     </p>
                   ))}
                 </div>
@@ -122,13 +142,17 @@ export default function ContactPage() {
                   Send us a Message
                 </h2>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form id="contact-form" onSubmit={handleSubmit} className="scroll-mt-24 space-y-4">
+                  {errorMessage && <p role="alert" className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-foreground">{errorMessage}</p>}
                   <div className="grid sm:grid-cols-2 gap-4">
                     <input
                       type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      id="contact-name"
+                      aria-label="Your Name"
+                      autoComplete="name"
                       placeholder="Your Name"
                       className="w-full px-4 py-3 rounded-xl border-2 border-gold-500/20 bg-background focus:outline-none focus:border-gold-500 text-foreground"
                     />
@@ -137,6 +161,9 @@ export default function ContactPage() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      id="contact-email"
+                      aria-label="Email Address"
+                      autoComplete="email"
                       placeholder="Email Address"
                       className="w-full px-4 py-3 rounded-xl border-2 border-gold-500/20 bg-background focus:outline-none focus:border-gold-500 text-foreground"
                     />
@@ -146,7 +173,10 @@ export default function ContactPage() {
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="Phone Number (optional)"
+                    id="contact-phone"
+                      aria-label="Phone Number (optional)"
+                      autoComplete="tel"
+                      placeholder="Phone Number (optional)"
                     className="w-full px-4 py-3 rounded-xl border-2 border-gold-500/20 bg-background focus:outline-none focus:border-gold-500 text-foreground"
                   />
 
@@ -155,7 +185,9 @@ export default function ContactPage() {
                     required
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    placeholder="Subject"
+                    id="contact-subject"
+                      aria-label="Subject"
+                      placeholder="Subject"
                     className="w-full px-4 py-3 rounded-xl border-2 border-gold-500/20 bg-background focus:outline-none focus:border-gold-500 text-foreground"
                   />
 
@@ -163,7 +195,9 @@ export default function ContactPage() {
                     required
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Your Message"
+                    id="contact-message"
+                      aria-label="Your Message"
+                      placeholder="Your Message"
                     rows={5}
                     className="w-full px-4 py-3 rounded-xl border-2 border-gold-500/20 bg-background focus:outline-none focus:border-gold-500 text-foreground resize-none"
                   />
@@ -205,7 +239,7 @@ export default function ContactPage() {
                 {/* ✅ UPDATED: Real Google Maps embed */}
                 <div className="flex-1 rounded-2xl overflow-hidden border border-gold-500/20 min-h-[300px] relative">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.5!2d80.5622!3d6.0850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sBoralukatiya%20Pirivena!5e0!3m2!1sen!2slk!4v1700000000000"
+                    src={siteConfig.location.googleMapsEmbedUrl}
                     width="100%"
                     height="100%"
                     style={{ border: 0, minHeight: "300px" }}
